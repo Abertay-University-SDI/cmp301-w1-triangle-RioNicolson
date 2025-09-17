@@ -65,7 +65,7 @@ bool App1::render()
 {
 	// Clear the scene. (default blue colour)
 	renderer->beginScene(0.39f, 0.58f, 0.92f, 1.0f);
-
+	
 	// Generate the view matrix based on the camera's position.
 	camera->update();
 
@@ -73,11 +73,18 @@ bool App1::render()
 	XMMATRIX worldMatrix = renderer->getWorldMatrix();
 	XMMATRIX viewMatrix = camera->getViewMatrix();
 	XMMATRIX projectionMatrix = renderer->getProjectionMatrix();
+	
+	
 
 	// Send geometry data (from mesh), send shader pararmeters and render geometry with set shaders
 	mesh->sendData(renderer->getDeviceContext());
+	
+	
+
 	colourShader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix);
+
 	colourShader->render(renderer->getDeviceContext(), mesh->getIndexCount());
+	
 
 	// Render GUI
 	gui();
